@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+
+<!--todas las etiquetas que maneja lo referencio a th-->
+<html xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+  
+<head>
+    <meta charset='utf-8'>
+    <title>Pagina listado</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+      <!--Jquery -->
+            <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+    <!--datatables -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.2/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.js"></script>
+    <!--swet alert  -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <!-- Font aweson-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" referrerpolicy="no-referrer" />
+    
+    <!--stilos plantilla -->
+          <link th:href="@{/css/styles.css}" rel="stylesheet" />
+             
+		<!--JS para validar  -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.5.3/js/bootstrapValidator.min.js"></script>
+          
+         <style type="text/css">
+         
+         .help-block {
+			color: red;
+		}
+	
+	
+		.form-group.has-error .form-control {
+			border: 1px solid red;
+			box-shadow: 0 0 0 0.2rem rgba(250, 16, 0, 0.18);
+		}
+		
+		.form-group.has-success .form-control {
+          border: 1px solid rgb(25, 127, 38);
+         box-shadow: 0 0 0 0.2rem #28bd222e;
+          }
+          
+		.en1 {
+			width: 350px;
+			height: 600px;
+
+			display: inline-block;
+			margin: 30px;
+		}
+
+		.en2 {
+			width: 350px;
+			height: 600px;
+
+			display: inline-block;
+		}
+
+		.en3 {
+			width: 350px;
+			height: 600px;
+
+			display: inline-block;
+			margin: 30px;
+		}
+
+		.ce {
+			text-align: center;
+			background: #088A85;
+			color: white;
+			padding: 15px;
+			margin-bottom: 0px;
+			font-size: 20px;
+			font-family: 'Roboto Condensed', sans-serif;
+		}
+
+		.p {
+			margin: 8px;
+			text-align: left;
+
+		}
+
+		.sub {
+			text-decoration: none;
+			font-size: 25px;
+			color: red;
+
+		}
+
+		.li {
+			text-decoration: none;
+			color: white;
+			background: black;
+			padding: 5px;
+			border-radius: 20px;
+			text-align: center;
+
+		}
+
+		.lis {
+			background: yellow;
+			padding: 10px;
+			color: black;
+			text-decoration: none;
+			font-size: 17px;
+			border: solid;
+		}
+
+		.con2 {
+			background: pink;
+			width: 255px;
+			float: left;
+		}
+
+
+		.a {
+			float: left;
+			background: #E93737;
+			padding: 5px;
+			height: 48px;
+			width: 550px;
+			color: #20C9EB;
+			border-radius: 10px;
+			text-align: center;
+			font-size: 25px;
+			font-family: 'Fjalla One', sans-serif;
+			border: solid white;
+		}
+
+		.usu {
+			float: right;
+			height: 75px;
+			width: 650px;
+			padding: 10px;
+
+		}
+
+		.b {
+			background: #1E89D3;
+			float: left;
+			border-radius: 10px;
+		}
+
+
+		.strongnav {
+			font-size: 25px;
+			color: white;
+			font-family: 'Fjalla One', sans-serif;
+		}
+		
+		 body{
+				  background: #E5E7E9;
+			  }
+			  	.icon{
+		   color: white;
+		   font-size: 20px;
+		}
+		.fas{
+		color: white;
+		}
+		
+		nav a {
+		  color:white;
+		  font-family: 'Roboto', sans-serif;
+		
+		}
+	
+	   hr {
+            background: #0B85F7;
+            height: 40px; /* Aumenta la altura para hacer la línea más gruesa */
+            }
+	</style>
+     
+</head>
+ <body class="sb-nav-fixed"> 
+       
+       <div th:replace="fragmen/HeadNav :: head"></div>
+        <div id="layoutSidenav">
+             <div th:replace="fragmen/LateralNavar :: navbar"></div>
+
+            <div id="layoutSidenav_content">
+                <main>
+                     <div class="container-fluid px-4">
+
+					<div class="row">
+						<div class="card mb-4">
+							<div class="card-header" style="background: #148F77;">					
+									<h4 class="text-white"><i class="fas fa-table me-1"></i>Usuarios </h4>
+							</div>
+							<div class="card-body">
+
+
+								<!-- Button modal -->
+								<button type="button" class="btn btn-primary btn-registrar"
+									data-bs-toggle="modal"data-bs-target="#modalcrud" id="add" >
+									Registrar </button>
+
+
+								<!-- Modal para registrar -->
+								<div class="modal fade" id="modalcrud" data-bs-backdrop="static"
+									data-bs-keyboard="false" tabindex="-1"
+									aria-labelledby="staticBackdropLabel" aria-hidden="true">
+									<div class="modal-dialog modal-lg modal-dialog-centered">
+										<div class="modal-content">
+											<div class="modal-header bg-danger">
+												<h5 class="modal-title text-white" id="exampleModalLabel">Mantenimiento
+													Usuarios</h5>
+												<button type="button" id="cerrarr" class="btn-close"
+													data-bs-dismiss="modal" aria-label="Close"></button>
+											</div>
+											<div class="modal-body">
+											
+												<form th:action="@{/usuario/grabar}" id="formAdmin"
+													th:object="${usuario}" method="post">
+													
+													<div class="row mb-4">
+														<div class="col-sm-12 col-md-6 col-lg-4 form-group">
+														 	<input  type="text" name="codigo"
+															 hidden	th:field="*{id_usuario}" id="codigo" class="form-control"> 
+
+															<label for="formGroupExampleInput" class="form-label">Nombre</label>
+															<div class="input-group ">
+																<span class="input-group-text" id="basic-addon1"><i
+																	class="fa-sharp fa-solid fa-user"></i></span> <input
+																	type="text" name="nombre" id="nombre"
+																	th:field="*{nombre}" class="form-control"
+																	placeholder="Ingrese Nombre" required>
+
+															</div>
+														</div>
+														<div class="col-sm-12 col-md-6 col-lg-4 form-group">
+															<label for="formGroupExampleInput" class="form-label">Apellido</label>
+															<div class="input-group ">
+																<span class="input-group-text" id="basic-addon1"><i
+																	class="fa-sharp fa-solid fa-user"></i></span> <input
+																	type="text" name="apellido" id="apellido"
+																	th:field="*{apellido}" class="form-control"
+																	placeholder="Ingrese Apellido" required>
+															</div>
+														</div>
+
+														<div class="col-sm-12 col-md-6 col-lg-4 form-group">
+															<label for="formGroupExampleInput" class="form-label">Email</label>
+															<div class="input-group ">
+																<span class="input-group-text" id="basic-addon1"><i
+																	class="fa-sharp fa-regular fa-diamond-turn-right"></i></span>
+																<input type="text" name="Direccion" id="email"
+																	th:field="*{email}" class="form-control"
+																	placeholder="Ingrese Email" required>
+															</div>
+														</div>
+													</div>
+													<div class="row mb-4">
+														<div class="col-sm-12 col-md-6 col-lg-4 form-group">
+															<label for="formGroupExampleInput" class="form-label">Username</label>
+															<div class="input-group ">
+																<span class="input-group-text" id="basic-addon1"><i
+																	class="fa-sharp fa-solid fa-phone"></i></span> <input
+																	type="text" name="telefono" id="username"
+																	th:field="*{username}" class="form-control"
+																	placeholder="Ingrese Username" required>
+															</div>
+														</div>
+
+														<div class="col-sm-12 col-md-6 col-lg-4 form-group">
+															<label for="formGroupExampleInput" class="form-label">Password</label>
+															<div class="input-group ">
+																<span class="input-group-text" id="basic-addon1"><i
+																	class="fa-sharp fa-solid fa-phone"></i></span> <input
+																	type="text" name="telefono" id="password"
+																	th:field="*{password}" class="form-control"
+																	placeholder="Ingrese Password" required>
+															</div>
+														</div>
+														<div class="col-sm-12 col-md-6 col-lg-4 form-group">
+															<label for="formGroupExampleInput" class="form-label">Roles</label>
+															<select class="form-select form-control" id="ciudad"
+																th:field="*{roles}" name="txtciudad">
+																<option value="">[Seleccione Rol]</option>
+																<option th:each="ad:${listaroles}" th:utext="${ad.nombre}"
+																	th:value="${ad.id_rol}"></option>
+
+															</select>
+														</div>
+
+													</div>
+													<div class="modal-footer">
+														<button type="submit" class="btn btn-success"
+															id="btngrabar">Actualizar</button>
+														<button type="button" class="btn btn-secondary"
+															id="cerrar" data-bs-dismiss="modal">Cerrar</button>
+
+													</div>
+
+												</form>
+
+												
+											</div>
+
+										</div>
+									</div>
+								</div>
+								<!-- Fin modal para registrar -->
+								
+								 
+
+
+								<div class="mt-3">
+									<table class="table table-striped table-bordered" id="myTable">
+										<thead style="background: #5D6D7E;color: white">
+											<tr>
+												<th>Codigo</th>
+												<th>Nombre</th>
+												<th>Apellido</th>
+												<th>email</th>
+												<th>usuario</th>
+												<th>password</th>
+												<th>Rol</th>
+												<th></th>
+												
+
+											</tr>
+										</thead>
+										<tbody>
+											<tr th:each="row:${listausu}">
+												<td th:text="${row.id_usuario}"></td>
+												<td th:text="${row.nombre}"></td>
+												<td th:text="${row.apellido}"></td>
+												<td th:text="${row.email}"></td>
+												<td th:text="${row.username}"></td>
+												<td th:text="${row.password}"></td>
+												<td th:each="ad:${row.roles}" th:text="${ad.nombre}"></td>
+												<td><a class="btn btn-warning btn-editar"
+													data-bs-toggle="modal" data-bs-target="#modalcrud">  <i class="fa-sharp fa-solid fa-pen-to-square"></i></a>
+													
+													 <a class="btn btn-danger btn-eliminar"><i
+														class="fa-sharp fa-solid fa-trash-can"></i></a> 
+													
+											   </td>
+											   
+											</tr>
+										</tbody>
+									</table>
+								</div>
+
+							</div>
+						</div>
+					</div>
+					</main>
+               
+                
+            </div>
+        </div>
+
+   
+         <!--stilos plantilla -->
+            <script th:src="@{/js/scripts.js}"></script>
+            
+            
+        <script>
+          $(document).ready(function () {
+				$('#myTable').DataTable({
+
+					"language": {
+						"url": "https://cdn.datatables.net/plug-ins/1.13.1/i18n/es-ES.json"
+
+					}
+				});
+			});
+        </script>
+        
+        
+         <script>
+        	$(document).on("click",".btn-editar",function(){
+			//leer la columna codigo de la fila actual seg-un el boton que se hizo clik 
+			let cod;
+			cod=$(this).parents("tr").find("td")[0].innerHTML;
+			$("#btngrabar").text("Actualizar");
+			$.get("buscar/"+cod,function(response){
+				console.log(response);
+				$("#codigo").val(response.id_usuario);
+				$("#nombre").val(response.nombre);
+				$("#apellido").val(response.apellido);
+				$("#username").val(response.username);
+				$("#password").val(response.password);
+				$("#email").val(response.email);
+				
+			})	
+		})
+		
+			 $(document).ready(function() {
+            $('.btn-registrar').click(function() { 	
+            	$("#btngrabar").text("registrar");
+            	$("#codigo").val(0);
+			
+            });
+      });
+        	
+        	
+      
+
+    </script>
+    
+      <script> 
+          $(document).on("click",".btn-eliminar",function(){
+			//leer la columna código de la fila actual según el botón que se hizo click
+			let cod;
+			cod=$(this).parents("tr").find("td")[0].innerHTML;
+
+			Swal.fire({
+				title: 'Seguro?',
+				text: "Estas seguro de eliminar",
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: 'Si'
+			}).then((result) => {
+				if (result.isConfirmed) {
+						window.location = "delete/" + cod;
+					
+		}
+			})
+			
+		})
+		</script>
+
+        <script th:inline="javascript" th:if="${MENSAJE!=null}">
+           let msj
+			msj = /*[[${MENSAJE}]]*/
+				Swal.fire(
+					'Correcto!',
+					msj,
+					'success'
+				)
+          </script>
+          
+        
+  
+    </body>
+      <script>
+    $(document).ready(function () {
+    	//validación
+    	 $('#formAdmin').bootstrapValidator({      
+    	 fields:{
+    		 nombre:{
+    		 		validators:{
+    		 			notEmpty:{
+    		 				message:'Campo nombre es obligatorio'
+    		 			},
+    		 			regexp: {
+							 regexp: /^([a-zA-Z\é\á\ú\í\ó\s\Ñ\ñ]{3,20})$/,
+							 message: 'Nombre Min:3 y Max:20 caracteres'
+						},
+    		 		}
+    		 	},
+    		 	apellido:{
+    		 		validators:{
+    		 			notEmpty:{
+    		 				message:'Campo apellido es obligatorio'
+    		 			},        		 			
+    		 			stringLength: {
+                             min: 3,
+                             max: 50,
+                             message: 'El apellido es de 3 a 50 caracteres'
+                         }
+    		 		}
+    		 	},      		 
+    		 	username:{
+    		 		validators:{
+    		 			notEmpty:{
+    		 				message:'Campo username es obligatorio'
+    		 			},
+    		 			stringLength: {
+                             min: 3,
+                             max: 50,
+                             message: 'El username es de 3 a 50 caracteres'
+                         }
+    		 		}
+    		 	},
+    		 	password:{
+    		 		validators:{
+    		 			notEmpty:{
+    		 				message:'Campo password es obligatorio'
+    		 			},
+    		 			stringLength: {
+                             min: 3,
+                             max: 50,
+                             message: 'El password es de 3 a 50 caracteres'
+                         }
+    		 		}
+    		 	},
+    		 
+    		 
+                roles: {
+     	    		validators:{
+    		 			notEmpty:{
+    		 				message:'Campo roles es obligatorio'
+    		 			}
+    		 		}
+                },
+             	
+    	 }
+    })
+    
+    	
+  
+    
+    //resetear las validaciones
+     $("#cerrar").click(function () {
+			$('#formAdmin').bootstrapValidator("resetForm", true);
+		});
+	  $("#cerrarr").click(function () {
+			$('#formAdmin').bootstrapValidator("resetForm", true);
+		});
+
+});
+</script>
+ 
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

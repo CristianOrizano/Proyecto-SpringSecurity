@@ -1,0 +1,55 @@
+
+
+
+      <div id="layoutSidenav_nav" th:fragment="navbar" >
+                <nav class="sb-sidenav accordion sb-sidenav-dark" style="background: #212F3C" id="sidenavAccordion">
+                    
+                     <div class="sb-sidenav-menu">
+                         <div class="nav">
+                         <div style="text-align: center;margin-top: 15px">
+                             <img sec:authorize="hasAuthority('ADMIN')" alt="" src="/resources/imagen/admin.png" style="width: 120px;height: 120px">
+                              <img sec:authorize="hasAuthority('USER')" alt="" src="/resources/imagen/user.png" style="width: 120px;height: 120px">
+                             <!--  <img sec:authorize="hasAuthority('ADMIN') and hasAuthority('USER')" alt="" src="/resources/imagen/user.png" style="width: 100px;height: 100px">-->
+                              
+                         </div>                        
+                            <div class="sb-sidenav-menu-heading text-center">
+                            <h6 sec:authorize="hasAnyAuthority('ADMIN','USER')" style="color: white;font-family: sans-serif;" sec:authentication="principal.username"></h6>
+                            <h6  sec:authorize="hasAnyAuthority('ADMIN','USER')" style="color: white;" sec:authentication="principal.authorities"></h6>
+
+                            </div>
+                            
+                            <hr style="height: 4px">
+                              <a sec:authorize="hasAnyAuthority('ADMIN','USER')"  class="nav-link" style="color: #D7DBDD" th:href="@{/inicio}" >
+                                <div class="sb-nav-link-icon"><i class="fas fa-solid fa-house icon"></i></div>
+                                Principal
+                            </a>
+                            <a sec:authorize="hasAnyAuthority('ADMIN')"  class="nav-link collapsed" style="color: #D7DBDD" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-screwdriver-wrench icon"></i></div>
+                                Mantenimiento
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div sec:authorize="hasAnyAuthority('ADMIN')" class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" th:href="@{/electro/lis}">Productos</a>
+                                    <a class="nav-link" th:href="@{/usuario/lista}">Usuarios</a>
+                                </nav>
+                            </div>
+                            
+                            <a sec:authorize="hasAnyAuthority('ADMIN','USER')"  class="nav-link" style="color: #D7DBDD" th:href="@{/electro/catalogo}" >
+                                <div class="sb-nav-link-icon"><i class="fas fa-solid fa-clipboard-list icon"></i></div>
+                                Catalogo
+                            </a>
+                            
+                             
+                            
+                          
+                        </div>
+                    </div>
+                    
+                    
+                    <div class="sb-sidenav-footer">
+                        <div class="small">Logged in as:</div>
+                        Start Bootstrap
+                    </div>
+                </nav>
+            </div>

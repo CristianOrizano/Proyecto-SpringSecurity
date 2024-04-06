@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+
+<!--todas las etiquetas que maneja lo referencio a th-->
+<html xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+  
+<head>
+    <meta charset='utf-8'>
+    <title>Pagina listado</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+      <!--Jquery -->
+            <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+    <!--datatables -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.2/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.js"></script>
+    <!--swet alert  -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <!-- Font aweson-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" referrerpolicy="no-referrer" />
+    
+    <!--stilos plantilla -->
+          <link th:href="@{/css/styles.css}" rel="stylesheet" />
+          
+         <style type="text/css">
+		.en1 {
+			width: 350px;
+			height: 600px;
+
+			display: inline-block;
+			margin: 30px;
+		}
+
+		.en2 {
+			width: 350px;
+			height: 600px;
+
+			display: inline-block;
+		}
+
+		.en3 {
+			width: 350px;
+			height: 600px;
+
+			display: inline-block;
+			margin: 30px;
+		}
+
+		.ce {
+			text-align: center;
+			background: #088A85;
+			color: white;
+			padding: 15px;
+			margin-bottom: 0px;
+			font-size: 20px;
+			font-family: 'Roboto Condensed', sans-serif;
+		}
+
+		.p {
+			margin: 8px;
+			text-align: left;
+
+		}
+
+		.sub {
+			text-decoration: none;
+			font-size: 25px;
+			color: red;
+
+		}
+
+		.li {
+			text-decoration: none;
+			color: white;
+			background: black;
+			padding: 5px;
+			border-radius: 20px;
+			text-align: center;
+
+		}
+
+		.lis {
+			background: yellow;
+			padding: 10px;
+			color: black;
+			text-decoration: none;
+			font-size: 17px;
+			border: solid;
+		}
+
+		.con2 {
+			background: pink;
+			width: 255px;
+			float: left;
+		}
+
+
+		.a {
+			float: left;
+			background: #E93737;
+			padding: 5px;
+			height: 48px;
+			width: 550px;
+			color: #20C9EB;
+			border-radius: 10px;
+			text-align: center;
+			font-size: 25px;
+			font-family: 'Fjalla One', sans-serif;
+			border: solid white;
+		}
+
+		.usu {
+			float: right;
+			height: 75px;
+			width: 650px;
+			padding: 10px;
+
+		}
+
+		.b {
+			background: #1E89D3;
+			float: left;
+			border-radius: 10px;
+		}
+
+
+		.strongnav {
+			font-size: 25px;
+			color: white;
+			font-family: 'Fjalla One', sans-serif;
+		}
+		
+		
+	</style>
+     
+</head>
+ <body class="sb-nav-fixed"> 
+       
+      <div th:replace="fragmen/HeadNav :: head"></div>
+        <div id="layoutSidenav">
+            <div th:replace="fragmen/LateralNavar :: navbar"></div>
+
+            <div id="layoutSidenav_content">
+                <main>
+                
+                
+                <center style="margin-top: 150px">
+                 <h1 style="color: orange">Acceso denegado</h1>
+                 <p>Usted no tiene acceso a esta ruta.....</p>
+                 <img src="/resources/imagen/icon.png">
+                 
+                 </center>
+                  
+                </main>
+               
+                
+            </div>
+        </div>
+
+   
+         <!--stilos plantilla -->
+            <script th:src="@{/js/scripts.js}"></script>
+            
+            
+        <script>
+          $(document).ready(function () {
+				$('#myTable').DataTable({
+
+					"language": {
+						"url": "https://cdn.datatables.net/plug-ins/1.13.1/i18n/es-ES.json"
+
+					}
+				});
+			});
+        </script>
+ 
+        <script th:inline="javascript" th:if="${MENSAJE!=null}">
+           let msj
+			msj = /*[[${MENSAJE}]]*/
+				Swal.fire(
+					'Correcto!',
+					msj,
+					'success'
+				)
+          </script>
+          
+          <script> 
+          $(document).on("click",".btn-eliminar",function(){
+			//leer la columna código de la fila actual según el botón que se hizo click
+			let cod;
+			cod=$(this).parents("tr").find("td")[0].innerHTML;
+
+			Swal.fire({
+				title: 'Seguro?',
+				text: "Estas seguro de eliminar",
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: 'Si'
+			}).then((result) => {
+				if (result.isConfirmed) {
+						window.location = "eliminar?codig=" + cod;
+					
+		}
+			})
+			
+		})
+		</script>
+  
+    </body>
+    
+ 
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

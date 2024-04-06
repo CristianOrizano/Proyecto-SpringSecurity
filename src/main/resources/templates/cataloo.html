@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+
+<!--todas las etiquetas que maneja lo referencio a th-->
+<html xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+  
+<head>
+    <meta charset='utf-8'>
+    <title>Pagina listado</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+      <!--Jquery -->
+            <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+    <!--datatables -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.2/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.js"></script>
+    <!--swet alert  -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <!-- Font aweson-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" referrerpolicy="no-referrer" />
+    
+    <!--stilos plantilla -->
+          <link th:href="@{/css/styles.css}" rel="stylesheet" />
+             
+		<!--JS para validar  -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.5.3/js/bootstrapValidator.min.js"></script>
+          
+         <style type="text/css">
+		.en1 {
+			width: 350px;
+			height: 600px;
+
+			display: inline-block;
+			margin: 30px;
+		}
+
+		.en2 {
+			width: 350px;
+			height: 600px;
+
+			display: inline-block;
+		}
+
+		.en3 {
+			width: 350px;
+			height: 600px;
+
+			display: inline-block;
+			margin: 30px;
+		}
+
+		.ce {
+			text-align: center;
+			background: #088A85;
+			color: white;
+			padding: 15px;
+			margin-bottom: 0px;
+			font-size: 20px;
+			font-family: 'Roboto Condensed', sans-serif;
+		}
+
+		.p {
+			margin: 8px;
+			text-align: left;
+
+		}
+
+		.sub {
+			text-decoration: none;
+			font-size: 25px;
+			color: red;
+
+		}
+
+		.li {
+			text-decoration: none;
+			color: white;
+			background: black;
+			padding: 5px;
+			border-radius: 20px;
+			text-align: center;
+
+		}
+
+		.lis {
+			background: yellow;
+			padding: 10px;
+			color: black;
+			text-decoration: none;
+			font-size: 17px;
+			border: solid;
+		}
+
+		.con2 {
+			background: pink;
+			width: 255px;
+			float: left;
+		}
+
+
+		.a {
+			float: left;
+			background: #E93737;
+			padding: 5px;
+			height: 48px;
+			width: 550px;
+			color: #20C9EB;
+			border-radius: 10px;
+			text-align: center;
+			font-size: 25px;
+			font-family: 'Fjalla One', sans-serif;
+			border: solid white;
+		}
+
+		.usu {
+			float: right;
+			height: 75px;
+			width: 650px;
+			padding: 10px;
+
+		}
+
+		.b {
+			background: #1E89D3;
+			float: left;
+			border-radius: 10px;
+		}
+
+
+		.strongnav {
+			font-size: 25px;
+			color: white;
+			font-family: 'Fjalla One', sans-serif;
+		}
+		
+		  body{
+				  background: #E5E7E9;
+			  }
+			  	.icon{
+		   color: white;
+		   font-size: 20px;
+		}
+		.fas{
+		color: white;
+		}
+		
+		nav a {
+		  color:white;
+		  font-family: 'Roboto', sans-serif;
+		
+		}
+	
+	   hr {
+            background: #0B85F7;
+            height: 40px; /* Aumenta la altura para hacer la línea más gruesa */
+            
+	}
+		
+		
+	</style>
+     
+</head>
+ <body class="sb-nav-fixed"> 
+       
+       <div th:replace="fragmen/HeadNav :: head"></div>
+        <div id="layoutSidenav">
+           <div th:replace="fragmen/LateralNavar :: navbar"></div>
+
+            <div id="layoutSidenav_content">
+                <main>
+                     <div class="container-fluid px-4">
+
+					<div class="row">
+						<div class="card mb-4">
+							<div class="card-header">
+								<h3 class="text-center"
+										style="color: white; background: black; padding: 15px;">Catalogo
+										Electrodomesticos</h3>
+							</div>
+							<div class="card-body">
+								<div>	
+									<div
+										class="row row-cols-1 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-4">
+										<tr th:each="row:${lista}" var="e">
+											<div class="col" >
+												<div class="card">
+
+													<img th:src="'/DatosImg/'+${row.nombreArchivo}+''"
+														class="card-img-top"
+														onerror="this.src='/DatosImg/descarga.png'">
+													<div class="card-body bg-dark">
+
+														<h5 th:text="${row.nombre}"
+															class="card-title text-center text-white"></h5>
+														<h5 th:text="'S/. '+${row.prec}"
+															class="card-text text-center text-white"></h5>
+														<h5 th:text="${row.marca}"
+															class="card-text text-center text-white"></h5>
+														<br>
+														<form th:action="@{/electro/selecDeta}" method="post">
+															<input name="txtcodigo" th:value="${row.codigo}"
+																type="hidden">
+															<div class="text-center">
+																<button type="submit" class="btn btn-danger">Agregar</button>
+															</div>
+														</form>
+
+													</div>
+												</div>
+											</div>
+										</tr>
+									</div>
+
+								</div>
+
+
+							</div>
+						</div>
+					</div>
+					</main>
+               
+                
+            </div>
+        </div>
+
+   
+         <!--stilos plantilla -->
+            <script th:src="@{/js/scripts.js}"></script>
+            
+            
+        <script>
+          $(document).ready(function () {
+				$('#myTable').DataTable({
+
+					"language": {
+						"url": "https://cdn.datatables.net/plug-ins/1.13.1/i18n/es-ES.json"
+
+					}
+				});
+			});
+        </script>
+        
+        
+         <script>
+        	$(document).on("click",".btn-editar",function(){
+			//leer la columna codigo de la fila actual seg-un el boton que se hizo clik 
+			let cod;
+			cod=$(this).parents("tr").find("td")[0].innerHTML;
+			$("#btngrabar").text("Actualizar");
+			$.get("buscar?codigo="+cod,function(response){
+				console.log(response);
+				$("#codigo").val(response.codigo);
+				$("#descrip").val(response.nombre);
+				$("#stock").val(response.stock);
+				$("#precio").val(response.prec);
+				$("#marca").val(response.marca);
+				$("#nomfoto").val(response.nombreArchivo);
+				
+			})	
+		})
+		
+			 $(document).ready(function() {
+            $('#add').click(function() { 	
+            	$("#btngrabar").text("registrar");
+            	$("#codigo").val(0);
+				$("#descrip").val('');
+				$("#stock").val('');
+				$("#precio").val('');
+				$("#marca").val('');
+				$("#marca").val('');
+				$("#nomfoto").val('');
+            });
+      });
+        	
+        	
+            //para la imagen
+            $(document).on("click",".btn-img",function(){
+ 			//recuperar el href del botón seleccionado
+ 			let img=$(this).attr("href");
+ 			//leer la columna código de la fila actual según el botón que se hizo click
+ 			let cod;
+ 			cod=$(this).parents("tr").find("td")[0].innerHTML;
+ 			$("#idCodigoFoto").val(cod);
+ 			//alert(img);
+ 			if(img=="")
+ 				$("#foto-medicamento").attr("src",'/DatosImg/descarga.png');
+ 			else
+ 				$("#foto-medicamento").attr("src",'/DatosImg/'+img);	
+ 			
+ 		})	
+
+    </script>
+    
+      <script> 
+          $(document).on("click",".btn-eliminar",function(){
+			//leer la columna código de la fila actual según el botón que se hizo click
+			let cod;
+			cod=$(this).parents("tr").find("td")[0].innerHTML;
+
+			Swal.fire({
+				title: 'Seguro?',
+				text: "Estas seguro de eliminar",
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: 'Si'
+			}).then((result) => {
+				if (result.isConfirmed) {
+						window.location = "eliminar?codigo=" + cod;
+					
+		}
+			})
+			
+		})
+		</script>
+
+        <script th:inline="javascript" th:if="${MENSAJE!=null}">
+           let msj
+			msj = /*[[${MENSAJE}]]*/
+				Swal.fire(
+					'Correcto!',
+					msj,
+					'success'
+				)
+          </script>
+          
+        
+  
+    </body>
+      <script>
+    $(document).ready(function () {
+    	
+    	//validación
+  
+    
+    //resetear las validaciones
+     $("#cerrar").click(function () {
+			$('#formAdmin').bootstrapValidator("resetForm", true);
+		});
+	  $("#cerrarr").click(function () {
+			$('#formAdmin').bootstrapValidator("resetForm", true);
+		});
+
+});
+</script>
+ 
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+
+<!--todas las etiquetas que maneja lo referencio a th-->
+<html xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+  
+<head>
+    <meta charset='utf-8'>
+    <title>Pagina listado</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+      <!--Jquery -->
+            <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+    <!--datatables -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.2/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.js"></script>
+    <!--swet alert  -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <!-- Font aweson-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" referrerpolicy="no-referrer" />
+    
+    <!--stilos plantilla -->
+          <link th:href="@{/css/styles.css}" rel="stylesheet" />
+          
+         <style type="text/css">
+		.en1 {
+			width: 350px;
+			height: 600px;
+
+			display: inline-block;
+			margin: 30px;
+		}
+
+		.en2 {
+			width: 350px;
+			height: 600px;
+
+			display: inline-block;
+		}
+
+		.en3 {
+			width: 350px;
+			height: 600px;
+
+			display: inline-block;
+			margin: 30px;
+		}
+
+		.ce {
+			text-align: center;
+			background: #088A85;
+			color: white;
+			padding: 15px;
+			margin-bottom: 0px;
+			font-size: 20px;
+			font-family: 'Roboto Condensed', sans-serif;
+		}
+
+		.p {
+			margin: 8px;
+			text-align: left;
+
+		}
+
+		.sub {
+			text-decoration: none;
+			font-size: 25px;
+			color: red;
+
+		}
+
+		.li {
+			text-decoration: none;
+			color: white;
+			background: black;
+			padding: 5px;
+			border-radius: 20px;
+			text-align: center;
+
+		}
+
+		.lis {
+			background: yellow;
+			padding: 10px;
+			color: black;
+			text-decoration: none;
+			font-size: 17px;
+			border: solid;
+		}
+
+		.con2 {
+			background: pink;
+			width: 255px;
+			float: left;
+		}
+
+
+		.a {
+			float: left;
+			background: #E93737;
+			padding: 5px;
+			height: 48px;
+			width: 550px;
+			color: #20C9EB;
+			border-radius: 10px;
+			text-align: center;
+			font-size: 25px;
+			font-family: 'Fjalla One', sans-serif;
+			border: solid white;
+		}
+
+		.usu {
+			float: right;
+			height: 75px;
+			width: 650px;
+			padding: 10px;
+
+		}
+
+		.b {
+			background: #1E89D3;
+			float: left;
+			border-radius: 10px;
+		}
+
+
+		.strongnav {
+			font-size: 25px;
+			color: white;
+			font-family: 'Fjalla One', sans-serif;
+		}
+		
+		
+		  body{
+				  background: #E5E7E9;
+			  }
+			  	.icon{
+		   color: white;
+		   font-size: 20px;
+		}
+		.fas{
+		color: white;
+		}
+		
+		nav a {
+		  color:white;
+		  font-family: 'Roboto', sans-serif;
+		
+		}
+	
+	   hr {
+            background: #0B85F7;
+            height: 40px; /* Aumenta la altura para hacer la línea más gruesa */
+            
+	}
+	</style>
+     
+</head>
+ <body class="sb-nav-fixed"> 
+       
+        <div th:replace="fragmen/HeadNav :: head"></div>
+        
+        <div id="layoutSidenav">
+         <div th:replace="fragmen/LateralNavar :: navbar"></div>
+
+            <div id="layoutSidenav_content">
+                <main>
+                            
+                    <div  id="carouselExampleIndicators" class="carousel slide"
+					data-bs-ride="carousel">
+					<div class="carousel-indicators">
+						<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
+							class="active" aria-current="true" aria-label="Slide 1"></button>
+						<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+							aria-label="Slide 2"></button>
+						<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+							aria-label="Slide 3"></button>
+					</div>
+
+					<div class="carousel-inner">
+						<div class="carousel-item active">
+							<img src='/resources/imagen/9.jpg' class="d-block w-100" alt="...">
+						</div>
+						<div class="carousel-item">
+							<img src='/resources/imagen/b1.jpg' class="d-block w-100" alt="...">
+						</div>
+						<div class="carousel-item">
+							<img src='/resources/imagen/b2.jpg' class="d-block w-100" alt="...">
+						</div>
+					</div>
+					<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+						data-bs-slide="prev">
+						<span class="carousel-control-prev-icon" aria-hidden="true"></span> <span
+							class="visually-hidden">Previous</span>
+					</button>
+					<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+						data-bs-slide="next">
+						<span class="carousel-control-next-icon" aria-hidden="true"></span> <span
+							class="visually-hidden">Next</span>
+					</button>
+				</div>
+				
+
+				<!-- /row -->
+
+				<!-- -->
+				<div class="container">
+
+					<div class="row align-items-center justify-content-center mt-5 py-3">
+
+						<div class="col-sm-12 col-md-6 col-lg-6 col-xl-5 ">
+							<h3 style="	color: red">Sobre Nosotros</h3>
+							<h4 style="color: blue;">Tenemos presente que somos una empresa lider
+							en el rubro de ventas.</h4>
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
+								do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+								enim ad minim veniam, quis nostrud exercitation ullamco laboris
+								nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+								reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+								pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+								culpa qui officia deserunt mollit anim id est laborum. lorem</p>
+							<p>
+								<a class="lis" href="##">Leer mas</a>
+							</p>
+						</div>
+						<div class="col-sm-12 col-md-6 col-lg-6 col-xl-4 ">
+							<img src='/resources/imagen/pr.jpg' class="img-fluid" style="width: 410px">
+						</div>
+
+					</div>
+
+					<div class="row justify-content-center py-3">
+
+						<div class="col-sm-12 col-md-6 col-lg-6 col-xl-3 p-3 ">
+							<div class="p-3 ">
+								<h4 class="ce">Cocina y limpieza</h4>
+								<img src='/resources/imagen/mul.jpg' class="img-fluid" width="350px" height="200px">
+								<h3 class="sub">
+									<a class="sub" href="##">Producto de limpieza y mucho mas</a>
+								</h3>
+								<p class="p">En la línea de Redes y Soporte técnico tenemos un
+									portafolio orientado a brindar soluciones de infraestructura
+									tecnológica en 3 grupos de acción para el bienestar familiar de
+									todods djfhjd</p>
+								<center>
+									<a class="li"
+										href="https://html-color-codes.info/codigos-de-colores-hexadecimales/">Leer
+										más</a>
+								</center>
+							</div>
+						</div>
+
+						<div class="col-sm-12 col-md-6 col-lg-6 col-xl-3 p-3">
+							<div class="p-3 ">
+								<h4 class="ce">Multimedia</h4>
+								<img src='/resources/imagen/coc.jpg' class="img-fluid" width="500px" height="200px">
+								<h3 class="sub">
+									<a class="sub" href="##">Mas aparatos para poder
+										disfrutar</a>
+								</h3>
+								<p class="p">En la línea de Redes y Soporte técnico tenemos un
+									portafolio orientado a brindar soluciones de infraestructura
+									tecnológica en 3 grupos de acción para el bienestar familiar de
+									todods djfhjd</p>
+								<center>
+									<a class="li"
+										href="https://html-color-codes.info/codigos-de-colores-hexadecimales/">Leer
+										más</a>
+								</center>
+							</div>
+						</div>
+
+						<div class="col-sm-12 col-md-6 col-lg-6 col-xl-3 p-3">
+							<div class="p-3">
+								<h4 class="ce">Electronicos</h4>
+								<img th:src="'/resources/imagen/ele.jpg'" class="img-fluid" width="500px" height="200px">
+								<h3 class="sub">
+									<a class="sub" href="##">Todo en productos elctronicos
+									que puedes imaginar</a>
+								</h3>
+								<p class="p">En la línea de Redes y Soporte técnico tenemos un
+									portafolio orientado a brindar soluciones de infraestructura
+									tecnológica en 3 grupos de acción para el bienestar familiar de
+									todods djfhj</p>
+								<center>
+									<a class="li"
+										href="https://html-color-codes.info/codigos-de-colores-hexadecimales/">Leer
+										más</a>
+								</center>
+							</div>
+						</div>
+
+					</div>
+				</div>
+                  </main>
+                   <footer class="py-4 bg-light mt-auto">
+                    <div class="container-fluid px-4">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted">Copyright &copy; Your Website 2023</div>
+                            <div>
+                                <a href="#">Privacy Policy</a>
+                                &middot;
+                                <a href="#">Terms &amp; Conditions</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+                    </div>
+                
+               
+                
+            </div>
+       
+
+   
+         <!--stilos plantilla -->
+            <script th:src="@{/js/scripts.js}"></script>
+            
+            
+        <script>
+          $(document).ready(function () {
+				$('#myTable').DataTable({
+
+					"language": {
+						"url": "https://cdn.datatables.net/plug-ins/1.13.1/i18n/es-ES.json"
+
+					}
+				});
+			});
+        </script>
+ 
+        <script th:inline="javascript" th:if="${MENSAJE!=null}">
+           let msj
+			msj = /*[[${MENSAJE}]]*/
+				Swal.fire(
+					'Correcto!',
+					msj,
+					'success'
+				)
+          </script>
+          
+          <script> 
+          $(document).on("click",".btn-eliminar",function(){
+			//leer la columna código de la fila actual según el botón que se hizo click
+			let cod;
+			cod=$(this).parents("tr").find("td")[0].innerHTML;
+
+			Swal.fire({
+				title: 'Seguro?',
+				text: "Estas seguro de eliminar",
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: 'Si'
+			}).then((result) => {
+				if (result.isConfirmed) {
+						window.location = "eliminar?codig=" + cod;
+					
+		}
+			})
+			
+		})
+		</script>
+  
+    </body>
+    
+ 
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
